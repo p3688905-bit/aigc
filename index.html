@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 課程初探:淺談生成式AI</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#4f46e5', // Indigo
+                        'secondary': '#1e293b', // Slate-800
+                        'tertiary': '#60a5fa', // Blue-400
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the accordion arrows and aesthetics */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details summary {
+            cursor: pointer;
+            list-style: none; /* Hide default marker */
+            position: relative;
+            padding-right: 2.5rem; /* Space for the custom arrow */
+        }
+        details summary:after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        details[open] summary:after {
+            content: '-';
+        }
+
+        /* Responsive Flow Chart Styling */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Mobile gap */
+        }
+        .flow-card {
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .flow-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: stretch;
+                gap: 4rem; /* Desktop gap for better spacing */
+            }
+            .flow-card {
+                flex: 1;
+            }
+            /* Arrow connector between cards on desktop */
+            .flow-card:not(:last-child):after {
+                content: '→'; /* Directional arrow */
+                position: absolute;
+                right: -2.75rem; /* Positioned to sit in the gap */
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 2.5rem;
+                color: #60a5fa; /* tertiary color */
+                font-weight: bold;
+                pointer-events: none;
+                z-index: 10;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans p-4 sm:p-8">
+    
+    <div class="max-w-6xl mx-auto space-y-12">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-extrabold text-white tracking-tight leading-tight">AI 課程初探</h1>
+            <p class="mt-2 text-2xl font-light text-primary">淺談生成式 AI (AIGC)</context-menu>
+        </header>
+
+        <!-- Main Content (Interactive Accordion) -->
+
+        <!-- 壹、人工智慧(AI) -->
+        <details class="bg-secondary rounded-xl shadow-2xl overflow-hidden group" open>
+            <summary class="p-6 sm:p-8 text-3xl font-bold text-white bg-primary/70 hover:bg-primary transition duration-300">
+                壹、人工智慧 (AI)
+            </summary>
+            <div class="p-6 sm:p-8 space-y-8">
+                <!-- 定義 -->
+                <div class="border-l-4 border-primary pl-4">
+                    <p class="text-lg font-medium text-gray-100">
+                        人工智慧 (AI) 是一種涵蓋範圍很廣的技術，包括機器學習 (ML)、深度學習 (DL)、自然語言處理 (NLP) 等多種子領域。AI 可被設計來完成各種任務，從簡單的排序、分類，到複雜的圖片識別、語音識別等。
+                    </p>
+                </div>
+                
+                <!-- 發展歷程 -->
+                <h2 class="text-2xl font-semibold text-tertiary pt-4">發展歷程</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Timeline Card -->
+                    <div class="md:col-span-1 bg-gray-800 p-6 rounded-lg shadow-inner">
+                        <h3 class="text-xl font-bold mb-4 border-b border-gray-700 pb-2">AI 歷史里程碑</h3>
+                        <ul class="space-y-4">
+                            <li class="relative pl-6"><span class="text-primary font-bold">1950年代:</span> 人工智慧誕生 (發明自我學習神經網路機器)。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">1960年代:</span> ELIZA 程式誕生 (模擬心理治療師對話)。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">1970年代:</span> 自然語言處理 (NLP) 出現。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">1990年代:</span> 機器翻譯進步。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">2000年~:</span> AI 系統開始能夠自動摘取和生成內容。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">2010年代:</span> 深度學習興起，推動 AI 更智慧化。</li>
+                            <li class="relative pl-6"><span class="text-primary font-bold">2020年代:</span> GPT-3 問世，證實 AI 技術高度發展的可能性。</li>
+                        </ul>
+                    </div>
+
+                    <!-- 發展演進 (Symbolic Logic, Expert System, Machine Learning) -->
+                    <div class="md:col-span-2 bg-gray-800 p-6 rounded-lg shadow-inner">
+                        <h3 class="text-xl font-bold mb-4 border-b border-gray-700 pb-2">人工智慧發展演進：三波浪潮（給學生的白話解說）</h3>
+                        <div class="flow-container">
+                            <div class="flow-card flex flex-col items-center p-4 bg-gray-700/50 rounded-lg shadow-lg border border-red-500/50">
+                                <span class="font-bold text-lg">第一波 (1950-1960)</span>
+                                <span class="text-2xl font-extrabold text-red-400">符號邏輯 (Symbolic Logic)</span>
+                                <p class="text-sm text-center mt-2 text-gray-400">
+                                    **想像給電腦一本「超級詳細的說明書」。** 程式設計師把所有規則（If/Then 邏輯）都寫進去。電腦只會按照說明書做事，但如果遇到說明書沒寫到的新問題，它就完全不知道該怎麼辦了。
+                                </p>
+                                <span class="text-xs text-red-500 mt-1 font-semibold">結果：失敗（AI 寒冬）</span>
+                            </div>
+                            <div class="flow-card flex flex-col items-center p-4 bg-gray-700/50 rounded-lg shadow-lg border border-red-500/50">
+                                <span class="font-bold text-lg">第二波 (1980-1990)</span>
+                                <span class="text-2xl font-extrabold text-red-400">專家系統 (Expert System)</span>
+                                <p class="text-sm text-center mt-2 text-gray-400">
+                                    **像是給電腦「某個領域的專家筆記」。** 程式設計師把特定領域專家（例如醫生或棋手）的經驗規則寫進去。它在診斷特定疾病或下棋等狹窄領域很厲害，但換一個領域或遇到模糊問題時，它的「專家知識」就沒用了。
+                                </p>
+                                <span class="text-xs text-red-500 mt-1 font-semibold">結果：失敗（AI 寒冬）</span>
+                            </div>
+                            <div class="flow-card flex flex-col items-center p-4 bg-gray-700/50 rounded-lg shadow-lg border border-green-500/50">
+                                <span class="font-bold text-lg">第三波 (2010-Present)</span>
+                                <span class="text-2xl font-extrabold text-green-400">機器學習 (Machine Learning)</span>
+                                <p class="text-sm text-center mt-2 text-gray-400">
+                                    **像是讓電腦「自己去上學學習」。** 我們給它大量的例子（數據），它自己找出規律和模式，而不是我們直接寫規則。因此，它能處理更複雜、更像人類思考的問題，這就是<span class="font-bold text-green-300">深度學習</span>的基礎。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- 貳、生成式 AI (AIGC) -->
+        <details class="bg-secondary rounded-xl shadow-2xl overflow-hidden group" open>
+            <summary class="p-6 sm:p-8 text-3xl font-bold text-white bg-primary/70 hover:bg-primary transition duration-300">
+                貳、生成式 AI (AIGC)
+            </summary>
+            <div class="p-6 sm:p-8 space-y-8">
+                <!-- 定義 -->
+                <div class="border-l-4 border-primary pl-4">
+                    <p class="text-lg font-medium text-gray-100">
+                        生成式 AI (人工智慧產生內容, AIGC) 是 AI 的一個特定應用領域，專注於使用 AI 建立新的、原創的內容，包括文字、圖片、音樂、影片等各種形式。
+                    </p>
+                </div>
+                
+                <!-- 生成步驟 -->
+                <h2 class="text-2xl font-semibold text-tertiary pt-4">生成步驟：從數據到內容</h2>
+                <div class="flow-container text-center">
+                    <div class="flex-1 p-3 rounded-lg bg-gray-800 shadow-md">
+                        <span class="text-3xl font-extrabold text-primary">01</span>
+                        <p class="font-bold mt-1">數據收集 (Data Collection)</p>
+                        <p class="text-xs text-gray-400">從網路、文獻、開源庫等收集大量且多樣化的數據（文本、圖像等），這是 AI 學習的基礎。</p>
+                    </div>
+                    <div class="flex-1 p-3 rounded-lg bg-gray-800 shadow-md">
+                        <span class="text-3xl font-extrabold text-primary">02</span>
+                        <p class="font-bold mt-1">數據預處理 (Data Preprocessing)</p>
+                        <p class="text-xs text-gray-400">對原始數據進行清洗、規範化、標註、去重和格式化，以消除噪聲和錯誤，確保數據質量。</p>
+                    </div>
+                    <div class="flex-1 p-3 rounded-lg bg-gray-800 shadow-md">
+                        <span class="text-3xl font-extrabold text-primary">03</span>
+                        <p class="font-bold mt-1">模型訓練 (Model Training)</p>
+                        <p class="text-xs text-gray-400">使用預處理後的數據來訓練 AI 模型（如 GPT、Diffusion Model），使其學習數據中的潛在模式和結構。</p>
+                    </div>
+                    <div class="flex-1 p-3 rounded-lg bg-gray-800 shadow-md">
+                        <span class="text-3xl font-extrabold text-primary">04</span>
+                        <p class="font-bold mt-1">內容生成 (Content Generation)</p>
+                        <p class="text-xs text-gray-400">模型基於用戶的輸入（Prompt, 提示詞）和已學習的知識，利用機率預測等技術生成全新的、原創的內容。</p>
+                    </div>
+                    <div class="flex-1 p-3 rounded-lg bg-gray-800 shadow-md">
+                        <span class="text-3xl font-extrabold text-primary">05</span>
+                        <p class="font-bold mt-1">內容優化與後處理 (Post-processing)</p>
+                        <p class="text-xs text-gray-400">對生成的內容進行校驗、審核、風格調整和精煉，確保輸出內容符合要求並兼顧安全性和倫理規範。</p>
+                    </div>
+                </div>
+
+                <!-- 應用範圍 -->
+                <h2 class="text-2xl font-semibold text-tertiary pt-4">應用範圍 (AIGC)</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 應用卡片 (App Card Component) -->
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">文字生成</h3>
+                        <p class="text-sm text-gray-300">根據主題自動產生完整的文章、觀點或建議。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: ChatGPT, Copilot, Gemini, 豆包, deepseek</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">圖片生成</h3>
+                        <p class="text-sm text-gray-300">根據文字描述產生對應的圖片 (例如使用 GANs 技術)。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: Midjourney, Bing, KLING AI, Leonardo. Ai, Dreamina</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">音樂生成</h3>
+                        <p class="text-sm text-gray-300">根據主題或風格創作出一首歌曲。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: SUNO</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">影片生成</h3>
+                        <p class="text-sm text-gray-300">能生成影片，包括圖片轉動畫、文字轉影片，甚至深度偽造 (deepfakes)。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: LUMA AI, Runway, KLING AI, Vidu</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">聲音錄製與克隆</h3>
+                        <p class="text-sm text-gray-300">文本轉旁白，或將他人的聲音與輸入文本合成為新的旁白。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: 海螺AI, TTSMAKER, HOIZ</p>
+                    </div>
+                    <div class="bg-gray-800 p-5 rounded-lg border border-gray-700 hover:border-primary transition duration-300">
+                        <h3 class="text-xl font-bold text-primary mb-2">影片製作剪輯</h3>
+                        <p class="text-sm text-gray-300">AI 剪輯能自動添加字幕、調整色彩，提高效率並降低製作成本。</p>
+                        <p class="text-xs text-gray-500 mt-2">參考工具: CapCut, MyEdit</p>
+                    </div>
+                </div>
+
+                <!-- 特點 (新增範例解說) -->
+                <h2 class="text-2xl font-semibold text-tertiary pt-4">生成式 AI 的特點與範例</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Feature Cards with Examples -->
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">機器學習能力強 (先進算法)</p>
+                        <p class="text-sm text-gray-400 mb-2">透過大量的數據和深度學習，AI 能掌握複雜的規律，並做出高水平的判斷與生成。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】AI 在圍棋等複雜遊戲中，能自我訓練並擊敗世界級人類選手，其策略和下法甚至超出了人類的既有認知。</p>
+                    </div>
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">自動化 (無須干預)</p>
+                        <p class="text-sm text-gray-400 mb-2">一旦設定好目標和規則，AI 就能自主地完成重複性高、耗費時間的任務。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】利用 AI 程式碼生成工具，你只需用自然語言描述需要的功能（例如「寫一個計算 BMI 的 Python 函式」），AI 就能自動寫出、檢查並優化程式碼。</p>
+                    </div>
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">高效率 (快速且準確)</p>
+                        <p class="text-sm text-gray-400 mb-2">能在極短時間內處理龐大的資訊量，並產生多種結果供使用者選擇。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】傳統上設計師繪製產品草圖可能需要一週，但透過 AI 圖片生成工具，輸入幾句提示詞，幾秒鐘內就能產生數十種不同風格的設計概念圖。</p>
+                    </div>
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">風格一致 (保持統一性)</p>
+                        <p class="text-sm text-gray-400 mb-2">AI 可以學習特定的風格、語氣或品牌規範，並將其應用於所有的生成內容中。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】一家公司可以將其品牌手冊輸入 AI，要求 AI 生成所有廣告文案時，必須使用「年輕、活潑、專業」的語氣，確保對外溝通的風格完全統一。</p>
+                    </div>
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">個性化定制 (量身定制體驗)</p>
+                        <p class="text-sm text-gray-400 mb-2">AI 能根據用戶的歷史數據、偏好或即時反饋，調整生成內容以滿足個別需求。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】在音樂串流平台上，AI 可以分析你過去聽的歌曲，為你自動生成一首「專屬於你的、融合了電子樂和古典樂元素的助眠歌曲」。</p>
+                    </div>
+                    <div class="bg-gray-700/50 p-4 rounded-lg shadow-md border border-tertiary/50">
+                        <p class="text-xl font-bold text-white mb-1">不斷改進 (持續的增強和更新)</p>
+                        <p class="text-sm text-gray-400 mb-2">通過每一次的互動和新數據的輸入，AI 模型能夠自我優化，提升其生成質量和準確性。</p>
+                        <p class="text-xs text-tertiary font-semibold">【範例】當 AI 翻譯系統被修正了某個常見的錯誤翻譯後，下次所有使用者遇到同樣語句時，AI 都能提供更準確的翻譯，並且在處理其他相似語句時也會一併改進。</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- 叁、生成式 AI (AIGC) 的爭議 -->
+        <details class="bg-secondary rounded-xl shadow-2xl overflow-hidden group">
+            <summary class="p-6 sm:p-8 text-3xl font-bold text-white bg-primary/70 hover:bg-primary transition duration-300">
+                叁、生成式 AI (AIGC) 的爭議
+            </summary>
+            <div class="p-6 sm:p-8 space-y-8">
+                <p class="text-lg font-medium text-gray-100 mb-6">
+                    生成式 AI 具有巨大的潛力，但同時也引發了廣泛的爭議與問題，需要我們謹慎使用。
+                </p>
+
+                <h2 class="text-2xl font-semibold text-red-400 pt-4">常見問題與說明</h2>
+                <div class="space-y-4">
+                    <!-- 爭議項目 1: 幻覺 (新增範例解說) -->
+                    <details class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <summary class="text-xl font-bold text-red-300">
+                            幻覺 (hallucination, 或稱人工幻覺)
+                        </summary>
+                        <p class="mt-2 pl-4 text-gray-300 text-base border-l-2 border-red-500 space-y-2">
+                            <span class="block">由人工智慧生成的一種回應，含有貌似事實的虛假或誤導性資訊。危險之處在於模型的輸出看起來是正確的，但實際上是錯誤的。</span>
+                            <span class="block font-semibold text-red-200">【解說範例】</span>
+                            <span class="block text-sm">當你詢問 AI 某位科學家的出生年份，AI 可能會給出一個看似準確的日期（例如 1895 年），但實際上該科學家出生於 1905 年。AI 會**虛構**不存在的事實或引用來源，讓你難以辨別真偽。</span>
+                        </p>
+                    </details>
+
+                    <!-- 爭議項目 2: 偏見 (新增範例解說) -->
+                    <details class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <summary class="text-xl font-bold text-red-300">
+                            偏見 (歧視)
+                        </summary>
+                        <p class="mt-2 pl-4 text-gray-300 text-base border-l-2 border-red-500 space-y-2">
+                            <span class="block">AI 基於特定訓練資料的偏見而作出決策。例如，以白人臉孔為主的訓練資料會導致臉部辨識系統在面對不同文化群體時無法做出準確判斷。</span>
+                            <span class="block font-semibold text-red-200">【解說範例】</span>
+                            <span class="block text-sm">若 AI 圖片生成工具訓練時，多數圖片將「醫生」與「男性」、「護士」與「女性」連結，當你要求它繪製「醫生」圖片時，它會傾向於產生男性圖像。這種結果反映了訓練數據中存在的性別刻板印象。</span>
+                        </p>
+                    </details>
+
+                    <!-- 爭議項目 3: 版權問題 (維持不變) -->
+                    <details class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <summary class="text-xl font-bold text-red-300">
+                            版權問題
+                        </summary>
+                        <p class="mt-2 pl-4 text-gray-300 text-base border-l-2 border-red-500">
+                            AIGC 大量蒐集資料進行訓練，這些資料的合法途徑存在爭議；AIGC 產生的作品是否受著作權法保護也尚無定論。
+                        </p>
+                    </details>
+
+                    <!-- 爭議項目 4: 假新聞與假訊息的傳播 (維持不變) -->
+                    <details class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <summary class="text-xl font-bold text-red-300">
+                            假新聞與假訊息的傳播
+                        </summary>
+                        <p class="mt-2 pl-4 text-gray-300 text-base border-l-2 border-red-500">
+                            利用 AIGC 技術可以大量製造假新聞與假訊息，並在網路中快速傳播。
+                        </p>
+                    </details>
+
+                    <!-- 爭議項目 5: 深度偽造 (新增範例解說) -->
+                    <details class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <summary class="text-xl font-bold text-red-300">
+                            深度偽造 (Deepfakes)
+                        </summary>
+                        <p class="mt-2 pl-4 text-gray-300 text-base border-l-2 border-red-500 space-y-2">
+                            <span class="block">專指基於人工智慧的人體圖像合成技術，可將已有的圖像或影片疊加至目標圖像或影片上，常用來偽造有害媒體。</span>
+                            <span class="block font-semibold text-red-200">【解說範例】</span>
+                            <span class="block text-sm">透過 Deepfake 技術，可以將某位公眾人物的臉孔「換」到一段虛假的影片中，讓他們看起來好像說了或做了從未發生過的事情，這可能被用於進行詐騙、惡意誹謗或影響選舉。</span>
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </details>
+
+        <!-- Footer / References -->
+        <footer class="text-center mt-12 pt-6 border-t border-gray-700">
+            <h4 class="text-lg font-semibold text-gray-400">參考書目</h4>
+            <ul class="text-sm text-gray-500 mt-2 space-y-1">
+                <li>《圖解AI人工智慧》</li>
+                <li>《AI.抄襲.智財權》</li>
+                <li>《AI人工智慧導論:理論、實務及素養》</li>
+            </ul>
+            <p class="mt-4 text-xs text-gray-600">網頁內容根據「AI課程初探：淺談生成式AI」文件轉換製作。</p>
+        </footer>
+
+    </div>
+</body>
+</html>
